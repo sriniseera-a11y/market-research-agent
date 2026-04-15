@@ -49,4 +49,6 @@ def synthesize_results(
             }
         ],
     )
+    if not response.content:
+        raise ValueError("Claude returned empty response during synthesis")
     return response.content[0].text
