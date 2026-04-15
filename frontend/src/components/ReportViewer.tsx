@@ -11,7 +11,7 @@ export function ReportViewer({ topic, markdown }: ReportViewerProps) {
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = `${topic.replace(/\s+/g, '-').toLowerCase()}-report.md`
+    a.download = `${topic.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}-report.md`
     a.click()
     URL.revokeObjectURL(url)
   }

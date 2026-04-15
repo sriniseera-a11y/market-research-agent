@@ -23,7 +23,8 @@ export function ProgressTracker({ currentStage, status }: ProgressTrackerProps) 
     <div className="flex items-start gap-0">
       {STAGES.map((stage, index) => {
         const isCompleted =
-          status === 'done' || (status === 'running' && index < currentIndex)
+          status === 'done' ||
+          ((status === 'running' || status === 'error') && index < currentIndex)
         const isActive = status === 'running' && index === currentIndex
         const isPending = index > currentIndex || status === 'pending'
 

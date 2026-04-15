@@ -79,6 +79,7 @@ export default function App() {
 
   function handleSelectJob(job: ResearchJob) {
     setActiveJob(job)
+    setSubmitError(null)
     if (job.status === 'pending' || job.status === 'running') {
       startPolling(job.id)
     }
