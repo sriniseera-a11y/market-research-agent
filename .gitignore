@@ -1,0 +1,29 @@
+# Environment / secrets
+.env
+*.env
+
+# Python virtual environments
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+
+# SQLite database
+*.db
+*.sqlite3
+
+# Node / frontend
+node_modules/
+dist/
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+*.swp
