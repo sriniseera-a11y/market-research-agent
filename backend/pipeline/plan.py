@@ -18,6 +18,8 @@ def generate_search_queries(topic: str, client: anthropic.Anthropic) -> list[str
             {"role": "user", "content": f"Generate search queries for: {topic}"}
         ],
     )
+    if not response.content:
+        raise ValueError("Claude returned empty response during query planning")
     raw = response.content[0].text.strip()
     queries = [line.strip() for line in raw.splitlines() if line.strip()]
     return queries[:8]  # cap at 8 queries

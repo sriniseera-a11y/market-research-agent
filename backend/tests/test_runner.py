@@ -36,7 +36,7 @@ async def test_run_pipeline_completes_successfully(engine, job):
         patch(
             "pipeline.runner.search_all_queries",
             new_callable=AsyncMock,
-            return_value=[],
+            return_value=[{"url": "https://example.com", "content": "market data"}],
         ),
         patch(
             "pipeline.runner.synthesize_results",

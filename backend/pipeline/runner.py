@@ -75,6 +75,11 @@ async def run_pipeline(job_id: str, topic: str) -> None:
 
         _update_stage(job_id, "search")
         results = await search_all_queries(queries, tavily_client)
+        if not results:
+            raise ValueError(
+                "No search results were returned — all Tavily queries failed. "
+                "Check TAVILY_API_KEY and network connectivity."
+            )
 
         _update_stage(job_id, "synthesize")
         synthesis = synthesize_results(results, topic, anthropic_client)

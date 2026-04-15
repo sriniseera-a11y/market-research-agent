@@ -78,6 +78,11 @@ export default function App() {
   }
 
   function handleSelectJob(job: ResearchJob) {
+    // Clear any in-flight poll so selecting a completed job doesn't get overwritten
+    if (pollRef.current) {
+      clearInterval(pollRef.current)
+      pollRef.current = null
+    }
     setActiveJob(job)
     setSubmitError(null)
     if (job.status === 'pending' || job.status === 'running') {
