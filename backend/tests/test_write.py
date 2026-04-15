@@ -38,7 +38,7 @@ def make_mock_claude_response(text: str) -> MagicMock:
 
 
 def test_write_report_returns_string():
-    mock_client = MagicMock(spec=anthropic.Anthropic)
+    mock_client = MagicMock()
     mock_client.messages.create.return_value = make_mock_claude_response(MOCK_REPORT)
 
     result = write_report(MOCK_SYNTHESIS, "EV battery market", mock_client)
@@ -48,7 +48,7 @@ def test_write_report_returns_string():
 
 
 def test_write_report_contains_all_sections():
-    mock_client = MagicMock(spec=anthropic.Anthropic)
+    mock_client = MagicMock()
     mock_client.messages.create.return_value = make_mock_claude_response(MOCK_REPORT)
 
     result = write_report(MOCK_SYNTHESIS, "EV battery market", mock_client)

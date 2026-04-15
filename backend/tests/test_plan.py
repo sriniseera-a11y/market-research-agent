@@ -15,7 +15,7 @@ def make_mock_claude_response(text: str) -> MagicMock:
 
 
 def test_generate_search_queries_returns_list():
-    mock_client = MagicMock(spec=anthropic.Anthropic)
+    mock_client = MagicMock()
     mock_client.messages.create.return_value = make_mock_claude_response(
         "EV battery market size 2024\n"
         "electric vehicle battery manufacturers global\n"
@@ -35,7 +35,7 @@ def test_generate_search_queries_returns_list():
 
 
 def test_generate_search_queries_calls_claude():
-    mock_client = MagicMock(spec=anthropic.Anthropic)
+    mock_client = MagicMock()
     mock_client.messages.create.return_value = make_mock_claude_response(
         "query one\nquery two\nquery three\nquery four\nquery five\n"
     )

@@ -40,7 +40,7 @@ MOCK_SYNTHESIS = """## Key Findings
 
 
 def test_synthesize_results_returns_string():
-    mock_client = MagicMock(spec=anthropic.Anthropic)
+    mock_client = MagicMock()
     mock_client.messages.create.return_value = make_mock_claude_response(
         MOCK_SYNTHESIS
     )
@@ -52,7 +52,7 @@ def test_synthesize_results_returns_string():
 
 
 def test_synthesize_results_passes_search_content_to_claude():
-    mock_client = MagicMock(spec=anthropic.Anthropic)
+    mock_client = MagicMock()
     mock_client.messages.create.return_value = make_mock_claude_response(
         MOCK_SYNTHESIS
     )
