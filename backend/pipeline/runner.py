@@ -1,4 +1,3 @@
-import asyncio
 import logging
 import os
 from datetime import datetime, UTC
@@ -32,6 +31,8 @@ def _update_stage(job_id: str, stage: str) -> None:
             job.status = JobStatus.running
             session.add(job)
             session.commit()
+        else:
+            logger.warning("_update_stage: job %s not found", job_id)
 
 
 def _complete_job(job_id: str, report: str) -> None:
@@ -44,6 +45,8 @@ def _complete_job(job_id: str, report: str) -> None:
             job.completed_at = datetime.now(UTC)
             session.add(job)
             session.commit()
+        else:
+            logger.warning("_complete_job: job %s not found", job_id)
 
 
 def _fail_job(job_id: str, message: str) -> None:
@@ -56,6 +59,8 @@ def _fail_job(job_id: str, message: str) -> None:
             job.completed_at = datetime.now(UTC)
             session.add(job)
             session.commit()
+        else:
+            logger.warning("_fail_job: job %s not found", job_id)
 
 
 async def run_pipeline(job_id: str, topic: str) -> None:
@@ -81,4 +86,7 @@ async def run_pipeline(job_id: str, topic: str) -> None:
         logger.info("Pipeline completed for job %s", job_id)
     except Exception as exc:
         logger.error("Pipeline failed for job %s: %s", job_id, exc)
-        _fail_job(job_id, str(exc))
+        try:
+            _fail_job(job_id, str(exc))
+        except Exception as fail_exc:
+            logger.error("Failed to mark job %s as error: %s", job_id, fail_exc)
