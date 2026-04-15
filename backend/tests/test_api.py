@@ -7,7 +7,7 @@ from sqlalchemy.pool import StaticPool
 
 from main import app
 from database import get_session
-from models import JobStatus, ResearchJob
+from models import ResearchJob
 
 
 @pytest.fixture(name="client")
@@ -69,6 +69,9 @@ def test_list_research_returns_jobs(client):
     data = response.json()
     assert isinstance(data, list)
     assert len(data) == 2
+    # newest first (topic two was created after topic one)
+    assert data[0]["topic"] == "topic two"
+    assert data[1]["topic"] == "topic one"
 
 
 def test_post_research_rejects_empty_topic(client):
