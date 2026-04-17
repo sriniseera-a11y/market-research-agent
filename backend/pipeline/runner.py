@@ -19,6 +19,8 @@ logger = logging.getLogger(__name__)
 
 def _get_engine():
     database_url = os.environ.get("DATABASE_URL", "sqlite:///./research.db")
+    if database_url.startswith("postgres://"):
+        database_url = database_url.replace("postgres://", "postgresql://", 1)
     return create_engine(database_url)
 
 

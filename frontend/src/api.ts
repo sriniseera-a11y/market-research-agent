@@ -9,8 +9,10 @@ export interface ResearchJob {
   completed_at: string | null
 }
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL ?? ''
+
 export async function submitResearch(topic: string): Promise<{ job_id: string }> {
-  const res = await fetch('/research', {
+  const res = await fetch(`${API_BASE}/research`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ topic }),
@@ -23,13 +25,13 @@ export async function submitResearch(topic: string): Promise<{ job_id: string }>
 }
 
 export async function getResearchJob(jobId: string): Promise<ResearchJob> {
-  const res = await fetch(`/research/${jobId}`)
+  const res = await fetch(`${API_BASE}/research/${jobId}`)
   if (!res.ok) throw new Error(`Failed to fetch job: ${res.status}`)
   return res.json()
 }
 
 export async function listResearchJobs(): Promise<ResearchJob[]> {
-  const res = await fetch('/research')
+  const res = await fetch(`${API_BASE}/research`)
   if (!res.ok) throw new Error(`Failed to list jobs: ${res.status}`)
   return res.json()
 }

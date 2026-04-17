@@ -7,6 +7,9 @@ from sqlmodel import Session, SQLModel, create_engine
 load_dotenv()
 
 DATABASE_URL = os.environ.get("DATABASE_URL", "sqlite:///./research.db")
+# Render provides postgres:// but SQLAlchemy 2.x requires postgresql://
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 engine = create_engine(DATABASE_URL, echo=False)
 
 
