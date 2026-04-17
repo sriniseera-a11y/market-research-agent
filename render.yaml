@@ -5,8 +5,11 @@ databases:
 services:
   - type: web
     name: market-research-backend
-    runtime: docker
-    dockerfilePath: backend/Dockerfile
+    runtime: python
+    pythonVersion: "3.11.9"
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
     plan: free
     envVars:
       - key: DATABASE_URL
