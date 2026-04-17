@@ -1,7 +1,7 @@
 fastapi==0.115.0
 uvicorn[standard]==0.30.6
 sqlmodel==0.0.38
-psycopg2-binary==2.9.9
+pg8000==1.31.2
 anthropic==0.95.0
 tavily-python==0.3.4
 python-dotenv==1.0.1
